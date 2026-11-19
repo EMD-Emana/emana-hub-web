@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="wrap">
         <div className="footer__grid">
           <div className="footer__brand">
-            <img src="/brand/brand-logo.png" alt="EMANA" width={1036} height={204} />
+            <img src="/brand/brand-logo.png" alt="EMANA" width={736} height={120} />
             <p>
               Estudio digital en Lima. Diseñamos y construimos webs, tiendas, agentes de IA y
               software que trabajan como un solo sistema.

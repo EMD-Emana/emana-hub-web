@@ -47,7 +47,7 @@ export default function Nav() {
       <header className={`nav${scrolled ? ' is-scrolled' : ''}`}>
         <div className="nav__inner">
           <Link href="/" className="nav__brand" aria-label="EMANA, inicio">
-            <img src="/brand/brand-logo.png" alt="EMANA" width={1036} height={204} />
+            <img src="/brand/brand-logo.png" alt="EMANA" width={736} height={120} />
           </Link>
           <nav className="nav__links" aria-label="Navegación principal">
             {links.map((l) => (
