@@ -434,10 +434,9 @@ ol {
   font-size: 0.86rem;
   padding-right: 6px;
 }
-.nav__brand svg {
-  width: 42px;
-  height: 21px;
-  overflow: visible;
+.nav__brand img {
+  height: 26px;
+  width: auto;
 }
 .brand-lockup {
   display: inline-flex;
@@ -1885,7 +1884,7 @@ ol {
   padding-bottom: 56px;
 }
 .footer__brand { display: grid; gap: 16px; align-content: start; max-width: 34ch; }
-.footer__brand .brand-lockup svg { width: 54px; height: 27px; }
+.footer__brand img { height: 40px; width: auto; }
 .footer__brand p { color: var(--muted); font-size: 0.86rem; }
 .footer__col { display: grid; gap: 12px; align-content: start; }
 .footer__col h4 {

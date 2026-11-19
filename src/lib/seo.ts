@@ -41,8 +41,11 @@ export const metadata: Metadata = {
     description: site.description,
   },
   icons: {
-    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
-    apple: [{ url: '/icon.svg' }],
+    icon: [
+      { url: '/brand/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/brand/favicon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [{ url: '/brand/favicon-180.png', sizes: '180x180', type: 'image/png' }],
   },
   category: 'technology',
 };
@@ -64,7 +67,7 @@ export function organizationJsonLd() {
     url: site.url,
     email: site.email,
     description: site.description,
-    logo: `${site.url}/brand/logo.svg`,
+    logo: `${site.url}/brand/brand-logo.png`,
     image: `${site.url}/opengraph-image`,
     areaServed: ['PE', 'LATAM'],
     address: {

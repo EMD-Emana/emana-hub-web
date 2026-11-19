@@ -51,15 +51,20 @@ export default function HeroScene() {
       camera.position.set(0, 0, 7.2);
 
       const group = new THREE.Group();
-      group.rotation.set(-0.42, 0.32, 0.14);
+      group.rotation.set(0.06, 0.1, 0);
       scene.add(group);
 
-      const lemniscate = (t: number, out: InstanceType<typeof THREE.Vector3>) =>
-        out.set(
-          2.15 * Math.cos(t),
-          0.62 * Math.sin(t) + 0.24 * Math.cos(3 * t),
-          1.18 * Math.sin(2 * t),
+      // Lemniscata plana frente a la cámara: la silueta se lee como ∞.
+      const lemniscate = (t: number, out: InstanceType<typeof THREE.Vector3>) => {
+        const sin = Math.sin(t);
+        const cos = Math.cos(t);
+        const denominator = 1 + sin * sin;
+        return out.set(
+          (2.42 * cos) / denominator,
+          ((2.42 * sin * cos) / denominator) * 1.35,
+          0.17 * Math.sin(2 * t),
         );
+      };
 
       const positions = new Float32Array(count * 3);
       const colors = new Float32Array(count * 3);
@@ -88,8 +93,8 @@ export default function HeroScene() {
 
         const angle = Math.random() * Math.PI * 2;
         const strand = Math.pow(Math.random(), 1.8);
-        const radius = 0.035 + strand * 0.16;
-        const jitter = (Math.random() - 0.5) * 0.05;
+        const radius = 0.05 + strand * 0.2;
+        const jitter = (Math.random() - 0.5) * 0.06;
 
         const x =
           p.x +
@@ -111,7 +116,7 @@ export default function HeroScene() {
         positions[i * 3 + 1] = y;
         positions[i * 3 + 2] = z;
 
-        const mix = Math.min(1, Math.max(0, (x + 2.2) / 4.4));
+        const mix = Math.min(1, Math.max(0, (x + 2.4) / 4.8));
         const c = mix < 0.5 ? cBlue.clone().lerp(cSoft, mix * 2) : cSoft.clone().lerp(cCyan, (mix - 0.5) * 2);
         if (strand < 0.12) c.lerp(white, 0.7);
         c.multiplyScalar(0.75 + strand * 0.6);
@@ -212,20 +217,29 @@ export default function HeroScene() {
         group.add(spriteNode);
       }
 
-      // orbiting sparks
-      const sparks: { mesh: InstanceType<typeof THREE.Mesh>; r: number; speed: number; phase: number; tilt: number }[] = [];
-      const sparkGeo = new THREE.SphereGeometry(0.022, 8, 8);
-      const sparkMat = new THREE.MeshBasicMaterial({ color: 0xbfe4ff });
-      for (let i = 0; i < 9; i += 1) {
-        const mesh = new THREE.Mesh(sparkGeo, sparkMat);
-        group.add(mesh);
-        sparks.push({
-          mesh,
-          r: 2.35 + Math.random() * 0.65,
-          speed: 0.14 + Math.random() * 0.18,
-          phase: Math.random() * Math.PI * 2,
-          tilt: (Math.random() - 0.5) * 1.2,
-        });
+      // two pulses travelling along the ribbon (energy flowing through the loop)
+      const curvePoints: InstanceType<typeof THREE.Vector3>[] = [];
+      for (let i = 0; i < 220; i += 1) {
+        curvePoints.push(lemniscate((i / 220) * Math.PI * 2, new THREE.Vector3()));
+      }
+      const curve = new THREE.CatmullRomCurve3(curvePoints, true, 'catmullrom', 0.5);
+      const pulses: InstanceType<typeof THREE.Sprite>[] = [];
+      if (sprite) {
+        for (let i = 0; i < 2; i += 1) {
+          const pulse = new THREE.Sprite(
+            new THREE.SpriteMaterial({
+              map: sprite,
+              color: 0xcdf3ff,
+              transparent: true,
+              opacity: 0.9,
+              depthWrite: false,
+              blending: THREE.AdditiveBlending,
+            }),
+          );
+          pulse.scale.set(0.75, 0.75, 1);
+          group.add(pulse);
+          pulses.push(pulse);
+        }
       }
 
       let baseScale = 1;
@@ -239,12 +253,12 @@ export default function HeroScene() {
         const halfW = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z * camera.aspect;
         const narrow = w < 900;
         if (narrow) {
-          baseScale = Math.min(0.56, (halfW * 0.62) / 2.6);
-          group.position.set(0, -2.95, -1.2);
+          baseScale = Math.min(0.52, (halfW * 0.62) / 2.8);
+          group.position.set(0, -3.25, -1.2);
           camera.position.z = 10.8;
           host.style.opacity = '0.4';
         } else {
-          baseScale = Math.min(0.92, (halfW * 0.44) / 2.6);
+          baseScale = Math.min(0.92, (halfW * 0.44) / 2.8);
           group.position.set(halfW * 0.4, 0.1, -0.4);
           camera.position.z = 7.2;
           host.style.opacity = '1';
@@ -288,9 +302,9 @@ export default function HeroScene() {
         pointer.x += (pointer.tx - pointer.x) * 0.045;
         pointer.y += (pointer.ty - pointer.y) * 0.045;
 
-        group.rotation.y = 0.32 + pointer.x * 0.26 + (reduce ? 0 : Math.sin(t * 0.16) * 0.08);
-        group.rotation.x = -0.42 + pointer.y * 0.18;
-        group.rotation.z = 0.14 + (reduce ? 0 : Math.sin(t * 0.11) * 0.05);
+        group.rotation.y = 0.1 + pointer.x * 0.22 + (reduce ? 0 : Math.sin(t * 0.16) * 0.06);
+        group.rotation.x = 0.06 + pointer.y * 0.14;
+        group.rotation.z = reduce ? 0 : Math.sin(t * 0.12) * 0.035;
 
         const breathe = 1 + (reduce ? 0 : Math.sin(t * 0.8) * 0.012);
         group.scale.setScalar(baseScale * breathe);
@@ -298,9 +312,9 @@ export default function HeroScene() {
         ring.rotation.z += reduce ? 0 : 0.0009;
         ring2.rotation.z -= reduce ? 0 : 0.0006;
 
-        sparks.forEach((s) => {
-          const a = s.phase + t * s.speed;
-          s.mesh.position.set(Math.cos(a) * s.r, Math.sin(a * 1.3) * 0.5 + s.tilt, Math.sin(a) * s.r * 0.6);
+        pulses.forEach((pulse, i) => {
+          const u = reduce ? i * 0.5 : (t * 0.055 + i * 0.5) % 1;
+          pulse.position.copy(curve.getPointAt(u));
         });
 
         renderer.render(scene, camera);

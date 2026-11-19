@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { EmanaMark } from './Icon';
 
 const links = [
   { href: '/#servicios', label: 'Servicios', id: 'servicios' },
@@ -48,8 +47,7 @@ export default function Nav() {
       <header className={`nav${scrolled ? ' is-scrolled' : ''}`}>
         <div className="nav__inner">
           <Link href="/" className="nav__brand" aria-label="EMANA, inicio">
-            <EmanaMark gradientId="nav-mark" />
-            <span>EMANA</span>
+            <img src="/brand/brand-logo.png" alt="EMANA" width={1036} height={204} />
           </Link>
           <nav className="nav__links" aria-label="Navegación principal">
             {links.map((l) => (
