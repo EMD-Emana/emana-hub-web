@@ -1,4 +1,5 @@
 import type { SVGProps } from 'react';
+import { lemniscatePath } from '@/lib/lemniscate';
 
 type P = SVGProps<SVGSVGElement>;
 
@@ -146,31 +147,58 @@ export const serviceIcons = {
   system: IconSystem,
 } as const;
 
-export function EmanaMark({ className }: { className?: string }) {
+const MARK_OUTER = lemniscatePath({ cx: 32, cy: 16, a: 26, yScale: 1.5, steps: 140 });
+const MARK_INNER = lemniscatePath({ cx: 32, cy: 16, a: 23.9, yScale: 1.36, steps: 140 });
+
+/** Isotipo: un único lazo continuo (lemniscata de Bernoulli) con degradado de marca. */
+export function EmanaMark({
+  gradientId = 'emana-mark',
+  className,
+}: {
+  gradientId?: string;
+  className?: string;
+}) {
   return (
     <svg viewBox="0 0 64 32" className={className} aria-hidden="true" focusable="false">
       <defs>
-        <linearGradient id="emana-mark" x1="0" y1="16" x2="64" y2="16" gradientUnits="userSpaceOnUse">
+        <linearGradient id={gradientId} x1="6" y1="16" x2="58" y2="16" gradientUnits="userSpaceOnUse">
           <stop stopColor="#8FB4FF" />
-          <stop offset=".45" stopColor="#4F82FF" />
+          <stop offset=".45" stopColor="#2E6BFF" />
           <stop offset="1" stopColor="#22E0FF" />
         </linearGradient>
       </defs>
       <path
-        d="M59 16c0 6.7-4.4 11.5-10.2 11.5-4.1 0-7-2.4-9.6-5.6l-2.6-3.2c-2.4-3-4.3-4.8-6.8-4.8-2.8 0-4.9 2.2-4.9 5.2s2.1 5.2 4.9 5.2c2.5 0 4.4-1.8 6.8-4.8l2.6-3.2c2.6-3.2 5.5-5.6 9.6-5.6C54.6 4.5 59 9.3 59 16Z"
+        d={MARK_OUTER}
         fill="none"
-        stroke="url(#emana-mark)"
-        strokeWidth="4.4"
+        stroke={`url(#${gradientId})`}
+        strokeWidth="4.2"
         strokeLinejoin="round"
+        strokeLinecap="round"
       />
       <path
-        d="M5 16c0-6.7 4.4-11.5 10.2-11.5 4.1 0 7 2.4 9.6 5.6M59 16c0 6.7-4.4 11.5-10.2 11.5-4.1 0-7-2.4-9.6-5.6"
+        d={MARK_INNER}
         fill="none"
-        stroke="url(#emana-mark)"
-        strokeWidth="4.4"
-        strokeLinecap="round"
-        opacity=".45"
+        stroke="#EAF4FF"
+        strokeOpacity="0.28"
+        strokeWidth="0.9"
+        strokeLinejoin="round"
       />
     </svg>
+  );
+}
+
+/** Lockup horizontal: isotipo + palabra. */
+export function EmanaLogo({
+  gradientId = 'emana-logo',
+  className,
+}: {
+  gradientId?: string;
+  className?: string;
+}) {
+  return (
+    <span className={`brand-lockup${className ? ` ${className}` : ''}`}>
+      <EmanaMark gradientId={gradientId} />
+      <span className="brand-lockup__word">EMANA</span>
+    </span>
   );
 }

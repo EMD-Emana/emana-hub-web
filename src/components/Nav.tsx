@@ -48,7 +48,7 @@ export default function Nav() {
       <header className={`nav${scrolled ? ' is-scrolled' : ''}`}>
         <div className="nav__inner">
           <Link href="/" className="nav__brand" aria-label="EMANA, inicio">
-            <EmanaMark />
+            <EmanaMark gradientId="nav-mark" />
             <span>EMANA</span>
           </Link>
           <nav className="nav__links" aria-label="Navegación principal">

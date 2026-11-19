@@ -435,9 +435,22 @@ ol {
   padding-right: 6px;
 }
 .nav__brand svg {
-  width: 34px;
-  height: 12px;
+  width: 42px;
+  height: 21px;
   overflow: visible;
+}
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-lockup__word {
+  font-family: 'Clash Display', 'Satoshi', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  font-size: 0.98rem;
+  line-height: 1;
+  color: var(--ink);
 }
 .nav__links {
   display: flex;
@@ -1860,6 +1873,7 @@ ol {
 .footer {
   position: relative;
   padding-top: clamp(60px, 8vw, 100px);
+  padding-bottom: 16px;
   border-top: 1px solid var(--line);
   overflow: hidden;
   background: linear-gradient(180deg, var(--bg), #04050a);
@@ -1871,7 +1885,7 @@ ol {
   padding-bottom: 56px;
 }
 .footer__brand { display: grid; gap: 16px; align-content: start; max-width: 34ch; }
-.footer__brand svg { width: 150px; height: auto; }
+.footer__brand .brand-lockup svg { width: 54px; height: 27px; }
 .footer__brand p { color: var(--muted); font-size: 0.86rem; }
 .footer__col { display: grid; gap: 12px; align-content: start; }
 .footer__col h4 {
@@ -1905,15 +1919,15 @@ ol {
   line-height: 0.72;
   font-family: 'Clash Display', sans-serif;
   font-weight: 600;
-  font-size: clamp(4.6rem, 19vw, 17rem);
-  letter-spacing: -0.06em;
+  font-size: clamp(4.2rem, 18vw, 16rem);
+  letter-spacing: -0.055em;
   text-align: center;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.01) 78%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.06) 84%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  transform: translateY(0.14em);
   user-select: none;
+  padding-bottom: 0.06em;
 }
 
 /* ---------- sub pages ---------- */

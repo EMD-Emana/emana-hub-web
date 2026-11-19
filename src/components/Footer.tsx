@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { EmanaMark } from './Icon';
+import { EmanaLogo } from './Icon';
 import { services, site } from '@/lib/content';
 
 export default function Footer() {
@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="wrap">
         <div className="footer__grid">
           <div className="footer__brand">
-            <EmanaMark />
+            <EmanaLogo gradientId="footer-mark" />
             <p>
               Estudio digital en Lima. Diseñamos y construimos webs, tiendas, agentes de IA y
               software que trabajan como un solo sistema.
