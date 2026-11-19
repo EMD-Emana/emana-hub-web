@@ -135,7 +135,7 @@ export default function AgentDemo() {
                 <span className="chat__tag">Demo</span>
               </div>
 
-              <div className="chat__body" aria-live="polite">
+              <div className="chat__body" aria-live="off">
                 {script.slice(0, shown).map((msg, i) => {
                   if (msg.kind === 'meta') {
                     return (

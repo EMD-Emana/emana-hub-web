@@ -202,12 +202,12 @@ export default function HeroScene() {
           new THREE.SpriteMaterial({
             map: glow,
             transparent: true,
-            opacity: 0.75,
+            opacity: 0.55,
             depthWrite: false,
             blending: THREE.AdditiveBlending,
           }),
         );
-        spriteNode.scale.set(8, 8, 1);
+        spriteNode.scale.set(6.2, 6.2, 1);
         spriteNode.position.z = -1.6;
         group.add(spriteNode);
       }

@@ -2,7 +2,7 @@ export const site = {
   name: 'EMANA',
   legalName: 'EMANA — Estudio digital',
   domain: 'emanahub.com',
-  url: 'https://emanahub.com',
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://emanahub.com',
   email: 'hola@emanahub.com',
   city: 'Lima, Perú',
   locale: 'es_PE',
