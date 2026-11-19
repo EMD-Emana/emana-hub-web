@@ -14,6 +14,12 @@ de forma al hacer scroll.
 - **Zod** para validar el formulario de contacto
 - Tipografías auto-alojadas: **Clash Display** + **Satoshi** (Fontshare, licencia libre para web)
 
+## En vivo
+
+- Producción: https://emana-hub.vercel.app (proyecto `champips-projects/emana-hub`)
+- Repo: https://github.com/EMD-Emana/emana-hub-web (público: Vercel Hobby no enlaza repos privados de una org)
+- Deploy automático con cada push a `main`.
+
 ## Scripts
 
 ```bash
